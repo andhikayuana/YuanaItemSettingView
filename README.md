@@ -2,6 +2,8 @@
 
 Simple ItemSettingView and Custom
 
+[![Release](https://jitpack.io/v/andhikayuana/YuanaItemSettingView.svg)](https://jitpack.io/#andhikayuana/YuanaItemSettingView)
+
 ![](example.png?raw=true)
 
 ## Installation
