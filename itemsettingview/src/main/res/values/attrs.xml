@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemSettingView">
+        <attr name="settingLabel" format="string" />
+        <attr name="settingIcon" format="integer" />
+        <attr name="settingDescription" format="string" />
+        <attr name="settingActionIcon" format="integer" />
+        <attr name="settingLabelColor" format="color" />
+        <attr name="settingDescriptionColor" format="color" />
+    </declare-styleable>
+</resources>
