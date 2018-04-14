@@ -2,7 +2,7 @@
 
 Simple ItemSettingView and Custom
 
-[![Release](https://jitpack.io/v/andhikayuana/YuanaItemSettingView.svg)](https://jitpack.io/#andhikayuana/YuanaItemSettingView)
+[![Release](https://jitpack.io/v/andhikayuana/YuanaItemSettingView.svg)](https://jitpack.io/#andhikayuana/YuanaItemSettingView) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-YuanaItemSettingView-green.svg?style=flat )]( https://android-arsenal.com/details/1/6902 )
 
 ![](example.png?raw=true)
 
