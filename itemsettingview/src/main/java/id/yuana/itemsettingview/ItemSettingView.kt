@@ -1,15 +1,15 @@
 package id.yuana.itemsettingview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import kotlinx.android.synthetic.main.view_item_setting.view.*
 
 /**
@@ -27,6 +27,7 @@ class ItemSettingView : LinearLayout {
     private var drawableActionIcon: Drawable? = null
     private var colorLabel: Int = 0
     private var colorDescription: Int = 0
+    private var clickableAction: Boolean = true
 
     private val inflater: LayoutInflater
         get() = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -43,11 +44,10 @@ class ItemSettingView : LinearLayout {
             viewCustomAction = customView
         }
 
-    @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet? = null): super(context) {
         init(context, attrs)
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init(context, attrs)
     }
@@ -81,10 +81,16 @@ class ItemSettingView : LinearLayout {
             strDescription = a.getString(R.styleable.ItemSettingView_settingDescription)
             drawableActionIcon = a.getDrawable(R.styleable.ItemSettingView_settingActionIcon)
             drawableIcon = a.getDrawable(R.styleable.ItemSettingView_settingIcon)
-            colorLabel = a.getColor(R.styleable.ItemSettingView_settingLabelColor,
+            colorLabel = a.getColor(
+                    R.styleable.ItemSettingView_settingLabelColor,
                     getColorDefault(context))
-            colorDescription = a.getColor(R.styleable.ItemSettingView_settingDescriptionColor,
+            colorDescription = a.getColor(
+                    R.styleable.ItemSettingView_settingDescriptionColor,
                     getColorDefault(context))
+            clickableAction = a.getBoolean(R.styleable.ItemSettingView_settingClickable, true)
+
+            // clickable
+            clickable(clickableAction)
         } finally {
             a.recycle()
         }
@@ -100,6 +106,20 @@ class ItemSettingView : LinearLayout {
 
     private fun removeDefaultAction() {
         (ivAction!!.parent as ViewGroup).removeView(ivAction)
+    }
+
+    @SuppressLint("ResourceType")
+    private fun clickable(isClickable: Boolean){
+        if (isClickable) {
+//            llContainer.background = resources.getDrawable(R.drawable.linear_layout_selector)
+            llContainer.isClickable = true
+            llContainer.isFocusable = true
+        } else {
+            llContainer.background = ContextCompat.getDrawable(context, android.R.color.transparent)
+            llContainer.isClickable = false
+            llContainer.isFocusable = false
+        }
+        invalidateAndRequestLayout()
     }
 
     fun setLabel(label: String?) {
@@ -140,6 +160,10 @@ class ItemSettingView : LinearLayout {
     fun setLabelColor(colorLabel: Int) {
         tvLabel!!.setTextColor(colorLabel)
         invalidateAndRequestLayout()
+    }
+
+    fun setClickableAction(clickable: Boolean) {
+        clickable(clickable)
     }
 
     private fun invalidateAndRequestLayout() {

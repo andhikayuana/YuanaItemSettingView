@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "checked : " + b, Toast.LENGTH_SHORT).show()
         }
 
+        itemNotif2.setClickableAction(true)
         itemNotif2.customViewAction = switch
     }
 

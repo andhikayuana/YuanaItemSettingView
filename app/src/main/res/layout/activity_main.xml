@@ -11,8 +11,6 @@
         android:id="@+id/itemNotif1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:padding="10dp"
         app:settingActionIcon="@drawable/ic_arrow_right"
         app:settingDescription="@string/txt_notifications_desc"
         app:settingDescriptionColor="@android:color/holo_green_light"
@@ -24,7 +22,7 @@
         android:id="@+id/itemNotif2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        app:settingClickable="false"
         app:settingDescription="@string/txt_notifications_desc"
         app:settingDescriptionColor="@android:color/holo_green_light"
         app:settingIcon="@drawable/ic_notifications"
@@ -34,8 +32,6 @@
     <id.yuana.itemsettingview.ItemSettingView
         android:id="@+id/itemNotif3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:padding="10dp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

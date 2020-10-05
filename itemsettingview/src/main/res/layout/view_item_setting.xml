@@ -2,10 +2,14 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
+        android:id="@+id/llContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/llHeader"

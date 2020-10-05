@@ -7,5 +7,6 @@
         <attr name="settingActionIcon" format="integer" />
         <attr name="settingLabelColor" format="color" />
         <attr name="settingDescriptionColor" format="color" />
+        <attr name="settingClickable" format="boolean" />
     </declare-styleable>
 </resources>
