@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
 
     <LinearLayout
         android:id="@+id/llContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/llHeader"
@@ -57,4 +61,4 @@
     </LinearLayout>
 
 
-</merge>
+</FrameLayout>

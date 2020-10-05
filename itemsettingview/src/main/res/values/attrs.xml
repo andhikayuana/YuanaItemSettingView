@@ -8,5 +8,9 @@
         <attr name="settingLabelColor" format="color" />
         <attr name="settingDescriptionColor" format="color" />
         <attr name="settingClickable" format="boolean" />
+        <attr name="settingCardBackgroundColor" format="color" />
+        <attr name="settingCardCornerRadius" format="float" />
+        <attr name="settingCardStroke" format="integer" />
+        <attr name="settingCardStrokeColor" format="color" />
     </declare-styleable>
 </resources>
