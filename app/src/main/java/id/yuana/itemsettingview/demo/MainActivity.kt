@@ -1,13 +1,15 @@
 package id.yuana.itemsettingview.demo
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Switch
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
      * Action Click
      */
     private fun initItemNotif1() {
+        Log.d(TAG, "initItemNotif1: $itemNotif1")
         itemNotif1.setOnClickListener {
             Toast.makeText(this, "clicked!", Toast.LENGTH_SHORT).show()
         }
@@ -35,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun initItemNotif2() {
         val switch = Switch(this)
         switch.isChecked = true
-        switch.setOnCheckedChangeListener { compoundButton, b ->
+        switch.setOnCheckedChangeListener { _, b ->
             Toast.makeText(this, "checked : " + b, Toast.LENGTH_SHORT).show()
         }
 

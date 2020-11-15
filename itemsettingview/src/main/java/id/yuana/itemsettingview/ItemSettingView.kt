@@ -1,22 +1,22 @@
 package id.yuana.itemsettingview
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.content.ContextCompat
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.view_item_setting.view.*
 
 /**
  * Created by yuana on 1/28/18.
  */
 
-class ItemSettingView : LinearLayout {
+class ItemSettingView : FrameLayout {
 
     private var mView: View? = null
     private var viewCustomAction: View? = null
@@ -27,6 +27,12 @@ class ItemSettingView : LinearLayout {
     private var drawableActionIcon: Drawable? = null
     private var colorLabel: Int = 0
     private var colorDescription: Int = 0
+    private var clickableAction: Boolean = true
+    private var cardBackgroundColor: Int = 0
+    private var cardCornerRadius: Float = 0f
+    private var cardStroke: Int = 0
+    private var cardStrokeColor: Int = 0
+    private val gradientDrawable = GradientDrawable()
 
     private val inflater: LayoutInflater
         get() = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -43,12 +49,16 @@ class ItemSettingView : LinearLayout {
             viewCustomAction = customView
         }
 
-    @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context, attrs)
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes
+    ) {
         init(context, attrs)
     }
 
@@ -65,33 +75,58 @@ class ItemSettingView : LinearLayout {
         setActionIcon(drawableActionIcon)
         setLabelColor(colorLabel)
         setDescriptionColor(colorDescription)
+        setClickableAction(clickableAction)
+        setCardBackgroundColor(cardBackgroundColor)
+        setCardCornerRadius(cardCornerRadius)
+        setCardStrokeWidth(cardStroke)
+        setCardStrokeColor(cardStrokeColor)
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
-
         inflateView()
 
         val a = context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.ItemSettingView,
-                0, 0)
+            attrs,
+            R.styleable.ItemSettingView,
+            0, 0
+        )
 
         try {
             strLabel = a.getString(R.styleable.ItemSettingView_settingLabel)
             strDescription = a.getString(R.styleable.ItemSettingView_settingDescription)
             drawableActionIcon = a.getDrawable(R.styleable.ItemSettingView_settingActionIcon)
             drawableIcon = a.getDrawable(R.styleable.ItemSettingView_settingIcon)
-            colorLabel = a.getColor(R.styleable.ItemSettingView_settingLabelColor,
-                    getColorDefault(context))
-            colorDescription = a.getColor(R.styleable.ItemSettingView_settingDescriptionColor,
-                    getColorDefault(context))
+            colorLabel = a.getColor(
+                R.styleable.ItemSettingView_settingLabelColor,
+                Color.DKGRAY
+            )
+            colorDescription = a.getColor(
+                R.styleable.ItemSettingView_settingDescriptionColor,
+                Color.DKGRAY
+            )
+            clickableAction = a.getBoolean(
+                R.styleable.ItemSettingView_settingClickable,
+                true
+            )
+            cardBackgroundColor = a.getColor(
+                R.styleable.ItemSettingView_settingCardStrokeColor,
+                Color.TRANSPARENT
+            )
+            cardCornerRadius = a.getFloat(
+                R.styleable.ItemSettingView_settingCardCornerRadius,
+                0f
+            )
+            cardStroke = a.getInt(
+                R.styleable.ItemSettingView_settingCardStroke,
+                0
+            )
+            cardStrokeColor = a.getColor(
+                R.styleable.ItemSettingView_settingCardStrokeColor,
+                Color.DKGRAY
+            )
         } finally {
             a.recycle()
         }
-    }
-
-    private fun getColorDefault(context: Context): Int {
-        return ContextCompat.getColor(context, android.R.color.darker_gray)
     }
 
     private fun inflateView() {
@@ -100,6 +135,14 @@ class ItemSettingView : LinearLayout {
 
     private fun removeDefaultAction() {
         (ivAction!!.parent as ViewGroup).removeView(ivAction)
+    }
+
+    private fun clickable(isClickable: Boolean) {
+        if (isClickable) {
+            flContainer.background = ContextCompat.getDrawable(context, R.drawable.item_selector)
+        } else {
+            flContainer.background = ContextCompat.getDrawable(context, android.R.color.transparent)
+        }
     }
 
     fun setLabel(label: String?) {
@@ -139,6 +182,40 @@ class ItemSettingView : LinearLayout {
 
     fun setLabelColor(colorLabel: Int) {
         tvLabel!!.setTextColor(colorLabel)
+        invalidateAndRequestLayout()
+    }
+
+    fun setClickableAction(clickable: Boolean) {
+        clickable(clickable)
+        invalidateAndRequestLayout()
+    }
+
+    fun setCardBackgroundColor(color: Int) {
+        gradientDrawable.setColor(color)
+
+        setBackgroundAttrs()
+    }
+
+    fun setCardCornerRadius(radius: Float) {
+        gradientDrawable.cornerRadius = radius
+
+        setBackgroundAttrs()
+    }
+
+    fun setCardStrokeWidth(width: Int) {
+        gradientDrawable.setStroke(width, cardStrokeColor)
+
+        setBackgroundAttrs()
+    }
+
+    fun setCardStrokeColor(color: Int) {
+        gradientDrawable.setStroke(cardStroke, color)
+
+        setBackgroundAttrs()
+    }
+
+    private fun setBackgroundAttrs() {
+        llContainer.background = gradientDrawable
         invalidateAndRequestLayout()
     }
 
