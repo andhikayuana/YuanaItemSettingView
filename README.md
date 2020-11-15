@@ -89,6 +89,10 @@ customViewAction.setChecked(false);
 
 1. ?
 
+## Donation
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T02OS5W)
+
 ## License
 
 MIT License
